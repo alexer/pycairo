@@ -773,23 +773,23 @@ is a multi-page vector surface backend.
 
       Here is an example sequence showing how this function might be used::
 
-        surface = PSSurface (filename, width, height)
+        surface = PSSurface(filename, width, height)
         ...
-        surface.dsc_comment (surface, "%%Title: My excellent document")
-        surface.dsc_comment (surface, "%%Copyright: Copyright (C) 2006 Cairo Lover")
+        surface.dsc_comment(surface, "%%Title: My excellent document")
+        surface.dsc_comment(surface, "%%Copyright: Copyright (C) 2006 Cairo Lover")
         ...
-        surface.dsc_begin_setup (surface)
-        surface.dsc_comment (surface, "%%IncludeFeature: *MediaColor White")
+        surface.dsc_begin_setup(surface)
+        surface.dsc_comment(surface, "%%IncludeFeature: *MediaColor White")
         ...
-        surface.dsc_begin_page_setup (surface)
-        surface.dsc_comment (surface, "%%IncludeFeature: *PageSize A3")
-        surface.dsc_comment (surface, "%%IncludeFeature: *InputSlot LargeCapacity")
-        surface.dsc_comment (surface, "%%IncludeFeature: *MediaType Glossy")
-        surface.dsc_comment (surface, "%%IncludeFeature: *MediaColor Blue")
+        surface.dsc_begin_page_setup(surface)
+        surface.dsc_comment(surface, "%%IncludeFeature: *PageSize A3")
+        surface.dsc_comment(surface, "%%IncludeFeature: *InputSlot LargeCapacity")
+        surface.dsc_comment(surface, "%%IncludeFeature: *MediaType Glossy")
+        surface.dsc_comment(surface, "%%IncludeFeature: *MediaColor Blue")
         ... draw to first page here ..
-        ctx.show_page (cr)
+        ctx.show_page(cr)
         ...
-        surface.dsc_comment (surface, "%%IncludeFeature:  PageSize A5");
+        surface.dsc_comment(surface, "%%IncludeFeature:  PageSize A5")
         ...
 
       .. versionadded:: 1.2
