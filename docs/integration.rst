@@ -103,34 +103,17 @@ Creating an ImageSurface from a PIL Image:
     .. code:: python
 
         import PIL.Image as Image
+        import cairo
 
-        def from_pil(im, alpha=1.0, format=cairo.FORMAT_ARGB32):
-            """
-            :param im: Pillow Image
-            :param alpha: 0..1 alpha to add to non-alpha images
-            :param format: Pixel format for output surface
-            """
-            assert format in (cairo.FORMAT_RGB24, cairo.FORMAT_ARGB32), "Unsupported pixel format: %s" % format
-            if 'A' not in im.getbands():
-                im.putalpha(int(alpha * 256.))
-            arr = bytearray(im.tobytes('raw', 'BGRa'))
-            surface = cairo.ImageSurface.create_for_data(arr, format, im.width, im.height)
-            return surface
+        formats = {
+            'RGB': ('BGRX', cairo.FORMAT_RGB24),
+            'RGBA': ('BGRA', cairo.FORMAT_ARGB32),
+        }
 
-
-        filename = 'test.jpeg'
-
-        # Open image to an ARGB32 ImageSurface
-        im = Image.open(filename)
-        surface1 = from_pil(im)
-
-        # Open image to an RGB24 ImageSurface
-        im = Image.open(filename)
-        surface2 = from_pil(im, format=cairo.FORMAT_RGB24)
-
-        # Open image to an ARGB32 ImageSurface, 50% opacity
-        im = Image.open(filename)
-        surface3 = from_pil(im, alpha=0.5, format=cairo.FORMAT_ARGB32)
+        im = Image.open('test.jpeg')
+        ifmt, cfmt = formats[im.mode]
+        arr = bytearray(im.tobytes('raw', ifmt))
+        surface = cairo.ImageSurface.create_for_data(arr, cfmt, im.width, im.height)
 
 
 Freetype-py & Cairo
