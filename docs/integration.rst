@@ -115,6 +115,23 @@ Creating an ImageSurface from a PIL Image:
         arr = bytearray(im.tobytes('raw', ifmt))
         surface = cairo.ImageSurface.create_for_data(arr, cfmt, im.width, im.height)
 
+Creating a PIL Image from an ImageSurface:
+    .. code:: python
+
+        import PIL.Image as Image
+        import cairo
+
+        formats = {
+            cairo.FORMAT_RGB24: ('RGB', 'BGRX'),
+            cairo.FORMAT_ARGB32: ('RGBA', 'BGRA'),
+        }
+
+        width, height = 255, 255
+        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+        imode, ifmt = formats[surface.get_format()]
+        data = surface.get_data().tobytes()
+        im = Image.frombytes(imode, (width, height), data, 'raw', ifmt)
+
 
 Freetype-py & Cairo
 -------------------
